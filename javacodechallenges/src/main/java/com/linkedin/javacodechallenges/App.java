@@ -6,9 +6,7 @@ import java.util.regex.Pattern;
 public class App {
 
     public static boolean isPasswordComplex(String password) {
-
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$");
-        // Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+/^\s*$/");
 
         return pattern.matcher(password).matches();
     }
