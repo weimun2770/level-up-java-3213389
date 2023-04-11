@@ -1,12 +1,25 @@
 package com.linkedin.javacodechallenges;
 
 import java.util.Scanner;
+import java.math.BigDecimal;
 
 public class App {
 
     public static double calculateWaterBill(double gallonsUsage) {
         // TODO: Implement method
-        return 0;
+        double gallonPerCCF = 748;
+        double minGallonForTwoCCFs = 2 * 748;
+        BigDecimal minChargeForTwoCCFs = new BigDecimal(18.84);
+        BigDecimal chargeForAddCCF = new BigDecimal(3.90);
+        BigDecimal finalCharge = minChargeForTwoCCFs;
+
+        if (gallonsUsage > minGallonForTwoCCFs) {
+            double extraGallonsUsage = gallonsUsage - minGallonForTwoCCFs;
+            double totalCCFUsage = Math.ceil(extraGallonsUsage / gallonPerCCF);
+            finalCharge = minChargeForTwoCCFs.add(chargeForAddCCF.multiply(new BigDecimal(totalCCFUsage)));
+        }
+
+        return finalCharge.doubleValue();
     }
 
     public static void main(String[] args) {
