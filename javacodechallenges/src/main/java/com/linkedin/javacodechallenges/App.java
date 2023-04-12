@@ -1,7 +1,10 @@
 package com.linkedin.javacodechallenges;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class App {
     public static final Map<Character, Integer> letterPoints = Map.ofEntries(Map.entry('A', 1),
@@ -14,7 +17,13 @@ public class App {
             Map.entry('Z', 10));
 
     public static int wordScoreCalculator(String word) {
-        return 0;
+        AtomicInteger totalPoints = new AtomicInteger(0);
+
+        word.toUpperCase().chars()
+                .mapToObj(e -> (char)e)
+                .forEachOrdered(letter -> totalPoints.getAndAdd(letterPoints.getOrDefault(letter, 0)));
+        
+        return totalPoints.get();
     }
 
     public static void main(String[] args) {
